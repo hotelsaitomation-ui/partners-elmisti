@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Cores El Misti */
+  --color-misti-orange: #FD8000;
+  --color-misti-orange-dark: #DB6F00;
+  --color-misti-orange-light: #FFB366;
+  --color-misti-teal: #00B5B8;
+  --color-misti-teal-light: #D7F2F1;
+  --color-misti-navy: #0A2540;
+  --color-misti-gray-warm: #F5F5F5;
+
+  /* Tipografia */
+  --font-heading: var(--font-poppins);
+  --font-body: var(--font-inter);
+}
+
+/* Estilos globais */
+html {
+  scroll-behavior: smooth;
+}
+
+:focus-visible {
+  outline: 2px solid #FD8000;
+  outline-offset: 2px;
+}
+
+/* Scrollbar customizada */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #FD8000;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #DB6F00;
+}

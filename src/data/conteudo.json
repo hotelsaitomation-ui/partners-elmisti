@@ -1,0 +1,54 @@
+{
+  "global": {
+    "heroTitulo": "Sua base para explorar a cidade",
+    "heroDescricao": "Use o codigo exclusivo de {handle} e garanta {desconto}% de desconto na sua hospedagem no El Misti Hostels.",
+    "bookingScore": "8.5",
+    "googleScore": "4.3",
+    "tripAdvisorRank": "Top 2",
+    "ctaTitulo": "Pronto para reservar com desconto?",
+    "ctaWhatsappTexto": "Prefere falar pelo WhatsApp?",
+    "whatsapp": "5521999999999"
+  },
+  "porPropriedade": {
+    "misti-ipa": {
+      "heroTitulo": "Sua base no coracao de Ipanema",
+      "heroDescricao": "Use o codigo exclusivo de {handle} e garanta {desconto}% de desconto no El Misti Hostels, a 40 segundos da praia de Ipanema.",
+      "bookingScore": "8.5",
+      "googleScore": "4.3",
+      "tripAdvisorRank": "Top 2",
+      "whatsapp": "5521999999999"
+    },
+    "misti-copa": {
+      "heroTitulo": "Sua suite em Copacabana",
+      "heroDescricao": "Use o codigo exclusivo de {handle} e garanta {desconto}% de desconto no El Misti Suites Copacabana.",
+      "bookingScore": "",
+      "googleScore": "",
+      "tripAdvisorRank": "",
+      "whatsapp": "5521999999999"
+    },
+    "misti-centro-ba": {
+      "heroTitulo": "Tu base en el centro de Buenos Aires",
+      "heroDescricao": "Usa el codigo exclusivo de {handle} y obtene {desconto}% de descuento en El Misti Buenos Aires Centro.",
+      "bookingScore": "",
+      "googleScore": "",
+      "tripAdvisorRank": "",
+      "whatsapp": "5491112345678"
+    },
+    "misti-obelisco": {
+      "heroTitulo": "Tu base junto al Obelisco",
+      "heroDescricao": "Usa el codigo exclusivo de {handle} y obtene {desconto}% de descuento en El Misti Obelisco.",
+      "bookingScore": "",
+      "googleScore": "",
+      "tripAdvisorRank": "",
+      "whatsapp": "5491112345678"
+    },
+    "misti-suites-ba": {
+      "heroTitulo": "Tu suite en Buenos Aires",
+      "heroDescricao": "Usa el codigo exclusivo de {handle} y obtene {desconto}% de descuento en El Misti Suites Argentina.",
+      "bookingScore": "",
+      "googleScore": "",
+      "tripAdvisorRank": "",
+      "whatsapp": "5491112345678"
+    }
+  }
+}

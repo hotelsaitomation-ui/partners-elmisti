@@ -1,0 +1,52 @@
+{
+  "influencers": [
+    {
+      "slug": "maria-viaja",
+      "nome": "Maria",
+      "handle": "@mariaviaja",
+      "foto": "",
+      "video": null,
+      "nicho": "viajante-solo",
+      "codigo": "MARIA10",
+      "desconto": 10,
+      "validade": "2026-03-31",
+      "ativo": true,
+      "tema": "misti-original",
+      "propriedade": "misti-ipa",
+      "mensagemPessoal": "Fiquei aqui em janeiro e o cafe da manha com vista pra Ipanema me conquistou. Melhor decisao da viagem!",
+      "mensagemAprovada": true
+    },
+    {
+      "slug": "joao-mochileiro",
+      "nome": "Joao",
+      "handle": "@joaomochileiro",
+      "foto": "",
+      "video": "https://youtube.com/embed/XXXXX",
+      "nicho": "mochileiro",
+      "codigo": "JOAO15",
+      "desconto": 15,
+      "validade": "2026-04-30",
+      "ativo": true,
+      "tema": "ocean-blue",
+      "propriedade": "misti-ipa",
+      "mensagemPessoal": "",
+      "mensagemAprovada": false
+    },
+    {
+      "slug": "ana-surf",
+      "nome": "Ana",
+      "handle": "@anasurfa",
+      "foto": "",
+      "video": null,
+      "nicho": "surfista",
+      "codigo": "ANA10",
+      "desconto": 10,
+      "validade": "2026-03-31",
+      "ativo": true,
+      "tema": "tropical-green",
+      "propriedade": "misti-centro-ba",
+      "mensagemPessoal": "",
+      "mensagemAprovada": false
+    }
+  ]
+}

@@ -5,7 +5,7 @@ import fs from "fs/promises";
 // Caminho do JSON local (fallback quando Notion nao esta configurado)
 const JSON_PATH = path.join(process.cwd(), "src/data/influencers.json");
 
-const useNotion = !!(process.env.NOTION_TOKEN && process.env.NOTION_DATASOURCE_ID);
+const useNotion = !!process.env.NOTION_TOKEN;
 
 // --- JSON local (funciona sem configuracao externa) ---
 

@@ -19,9 +19,11 @@ interface ConteudoStore {
   porPropriedade: Record<string, Partial<ConteudoPagina>>;
 }
 
-const useNotion = !!(
-  process.env.NOTION_TOKEN && process.env.NOTION_CONTEUDO_DATASOURCE_ID
-);
+// IDs da database Conteudo no Notion (nao sao sensíveis — o token e que e)
+const CONTEUDO_DS_ID = process.env.NOTION_CONTEUDO_DATASOURCE_ID ?? "04bab809518944118beb8a28ddbc0d2a";
+const CONTEUDO_DB_ID = process.env.NOTION_CONTEUDO_DB ?? "c8c4c769b82b4533bd84b4fac82b3943";
+
+const useNotion = !!process.env.NOTION_TOKEN;
 
 // --- JSON local (fallback) ---
 
@@ -56,9 +58,7 @@ async function getNotionClient() {
 
 async function readConteudoNotion(): Promise<ConteudoStore> {
   const notion = await getNotionClient();
-  const dsId = process.env.NOTION_CONTEUDO_DATASOURCE_ID!;
-
-  const response = await notion.dataSources.query({ data_source_id: dsId });
+  const response = await notion.dataSources.query({ data_source_id: CONTEUDO_DS_ID });
 
   const store: ConteudoStore = {
     global: {
@@ -88,10 +88,8 @@ async function readConteudoNotion(): Promise<ConteudoStore> {
 
 async function findNotionPageByEscopo(escopo: string): Promise<string | null> {
   const notion = await getNotionClient();
-  const dsId = process.env.NOTION_CONTEUDO_DATASOURCE_ID!;
-
   const response = await notion.dataSources.query({
-    data_source_id: dsId,
+    data_source_id: CONTEUDO_DS_ID,
     filter: {
       property: "Escopo",
       title: { equals: escopo },
@@ -130,7 +128,7 @@ async function updateNotionConteudo(escopo: string, updates: Partial<ConteudoPag
   if (!pageId) {
     // Cria nova entrada se nao existe
     const notion = await getNotionClient();
-    const dbId = process.env.NOTION_CONTEUDO_DB ?? "";
+    const dbId = CONTEUDO_DB_ID;
     const properties = buildNotionProperties(updates);
     properties.Escopo = { title: [{ text: { content: escopo } }] };
     await notion.pages.create({ parent: { database_id: dbId }, properties });

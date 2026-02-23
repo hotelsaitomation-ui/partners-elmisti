@@ -14,8 +14,9 @@ import { Influencer } from "@/types/partner";
 
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 // SDK v5: query usa data_source_id, create usa database_id
-const dataSourceId = process.env.NOTION_DATASOURCE_ID ?? process.env.NOTION_DATABASE_ID ?? "";
-const databaseId = process.env.NOTION_DATABASE_ID ?? "";
+// IDs com defaults hardcoded (nao sao sensíveis — o token e que e)
+const dataSourceId = process.env.NOTION_DATASOURCE_ID ?? "feca663af0e0435a8fa5b1e6060e8f10";
+const databaseId = process.env.NOTION_DATABASE_ID ?? "27e419e9889a4adaa12e96742f972540";
 
 function mapPageToInfluencer(page: any): Influencer {
   const props = page.properties;

@@ -1,18 +1,21 @@
 /**
  * Notion integration layer (SDK v5)
  *
- * NOTA: Para usar, conecte a integracao a pagina no Notion:
- * Pagina -> ... -> Conexoes -> Adicionar integracao
+ * Env vars necessarias:
+ *   NOTION_TOKEN          — Token da integracao Notion
+ *   NOTION_DATASOURCE_ID  — ID do data source (collection) para queries
+ *   NOTION_DATABASE_ID    — ID do database para criar paginas
  *
- * Depois, defina NOTION_DATABASE_ID no .env.local
- *
- * Enquanto nao configurado, use lib/partners.ts (JSON local)
+ * Na SDK v5, dataSources.query() usa data_source_id (collection),
+ * enquanto pages.create() usa database_id. Sao IDs DIFERENTES.
  */
 import { Client } from "@notionhq/client";
 import { Influencer } from "@/types/partner";
 
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
-const dataSourceId = process.env.NOTION_DATABASE_ID ?? "";
+// SDK v5: query usa data_source_id, create usa database_id
+const dataSourceId = process.env.NOTION_DATASOURCE_ID ?? process.env.NOTION_DATABASE_ID ?? "";
+const databaseId = process.env.NOTION_DATABASE_ID ?? "";
 
 function mapPageToInfluencer(page: any): Influencer {
   const props = page.properties;
@@ -131,7 +134,7 @@ export async function createPartnerNotion(
   data: Omit<Influencer, "ativo"> & { ativo?: boolean }
 ): Promise<void> {
   await notion.pages.create({
-    parent: { database_id: dataSourceId },
+    parent: { database_id: databaseId },
     properties: {
       Nome: { title: [{ text: { content: data.nome } }] },
       Slug: { rich_text: [{ text: { content: data.slug } }] },

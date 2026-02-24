@@ -8,6 +8,10 @@ import { getConteudo } from "@/lib/conteudo";
 import SmartFormElMisti, { SmartFormTrigger } from "@/components/SmartFormElMisti";
 import CodigoCopiavel from "@/components/CodigoCopiavel";
 
+// ISR: regenera paginas a cada 60s + on-demand via revalidatePath nos API routes
+export const revalidate = 60;
+export const dynamicParams = true;
+
 interface Props {
   params: Promise<{ slug: string }>;
 }

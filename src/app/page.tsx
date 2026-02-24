@@ -2,6 +2,9 @@ import Link from "next/link";
 import { getPartners } from "@/lib/partners";
 import SmartForm from "@/components/SmartForm";
 
+// ISR: regenera a cada 60s + on-demand via revalidatePath nos API routes
+export const revalidate = 60;
+
 export default async function HomePage() {
   const parceiros = await getPartners();
 

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getPartnerBySlug, updatePartner } from "@/lib/partners";
 import { normalizePartnerInput } from "@/lib/normalize";
 
@@ -43,6 +44,10 @@ export async function PUT(
     const { data: normalized, warnings } = normalizePartnerInput(body);
 
     await updatePartner(slug, normalized);
+
+    // Invalida cache da pagina do parceiro + home (lista de parceiros)
+    revalidatePath(`/${slug}`);
+    revalidatePath("/");
 
     return NextResponse.json(
       {

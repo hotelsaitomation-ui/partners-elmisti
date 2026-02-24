@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import {
   getConteudoGlobal,
   getConteudoPropriedade,
   updateConteudoGlobal,
   updateConteudoPropriedade,
 } from "@/lib/conteudo";
+import { getPartners } from "@/lib/partners";
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
   try {
@@ -37,6 +39,17 @@ export async function PUT(request: NextRequest): Promise<NextResponse> {
       await updateConteudoPropriedade(propriedade, conteudo);
     } else {
       await updateConteudoGlobal(conteudo);
+    }
+
+    // Invalida cache de TODAS as paginas de parceiros (conteudo afeta todas)
+    revalidatePath("/");
+    try {
+      const partners = await getPartners();
+      for (const p of partners) {
+        revalidatePath(`/${p.slug}`);
+      }
+    } catch {
+      // Se falhar buscar parceiros, pelo menos a home foi invalidada
     }
 
     return NextResponse.json({ success: true }, { status: 200 });

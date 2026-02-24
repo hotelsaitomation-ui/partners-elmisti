@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getPartners, getAllPartners, createPartner } from "@/lib/partners";
 import { normalizePartnerInput } from "@/lib/normalize";
 
@@ -36,8 +37,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     // Normalizar input
     const { data: normalized, warnings } = normalizePartnerInput(body);
 
+    const slug = normalized.slug ?? body.slug;
+
     await createPartner({
-      slug: normalized.slug ?? body.slug,
+      slug,
       nome: normalized.nome ?? body.nome,
       handle: normalized.handle ?? body.handle,
       foto: normalized.foto ?? body.foto ?? "",
@@ -52,6 +55,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       mensagemAprovada: false,
       ativo: body.ativo ?? false,
     });
+
+    // Invalida cache: home (lista) + pagina do novo parceiro
+    revalidatePath("/");
+    revalidatePath(`/${slug}`);
 
     return NextResponse.json(
       {

@@ -4,7 +4,9 @@ export async function GET(): Promise<NextResponse> {
   const checks: Record<string, string> = {};
 
   // 1. Checar env vars (sem mostrar valores)
-  checks.NOTION_TOKEN = process.env.NOTION_TOKEN ? `set (${process.env.NOTION_TOKEN.substring(0, 8)}...)` : "NOT SET";
+  const t = process.env.NOTION_TOKEN ?? "";
+  checks.NOTION_TOKEN = t ? `set (${t.substring(0, 20)}...${t.substring(t.length - 6)})` : "NOT SET";
+  checks.NOTION_TOKEN_LENGTH = String(t.length);
   checks.NOTION_DATASOURCE_ID = process.env.NOTION_DATASOURCE_ID ?? "(using hardcoded fallback)";
   checks.NOTION_CONTEUDO_DATASOURCE_ID = process.env.NOTION_CONTEUDO_DATASOURCE_ID ?? "(using hardcoded fallback)";
 

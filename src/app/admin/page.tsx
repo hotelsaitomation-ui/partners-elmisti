@@ -179,7 +179,7 @@ export default function AdminPage() {
           desconto: Number(form.desconto),
           tema: form.tema,
           propriedade: form.propriedade,
-          ativo: false,
+          ativo: true,
         }),
       });
 

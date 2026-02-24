@@ -53,7 +53,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       propriedade: body.propriedade ?? "misti-ipa",
       mensagemPessoal: body.mensagemPessoal ?? "",
       mensagemAprovada: false,
-      ativo: body.ativo ?? false,
+      ativo: body.ativo ?? true,
     });
 
     // Invalida cache: home (lista) + pagina do novo parceiro

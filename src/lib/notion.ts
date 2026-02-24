@@ -40,24 +40,31 @@ function mapPageToInfluencer(page: any): Influencer {
   };
 }
 
-export async function getPartnersNotion(): Promise<Influencer[]> {
-  const response = await notion.dataSources.query({
-    data_source_id: dataSourceId,
-    filter: {
-      property: "Ativo",
-      checkbox: { equals: true },
-    },
-  });
+/** Busca paginada do Notion (suporta >100 resultados) */
+async function queryAllPages(params?: { filter?: any; start_cursor?: string }): Promise<any[]> {
+  const results: any[] = [];
+  let cursor: string | undefined = params?.start_cursor;
+  do {
+    const queryParams: any = { data_source_id: dataSourceId };
+    if (params?.filter) queryParams.filter = params.filter;
+    if (cursor) queryParams.start_cursor = cursor;
+    const response: any = await notion.dataSources.query(queryParams);
+    results.push(...response.results);
+    cursor = response.next_cursor ?? undefined;
+  } while (cursor);
+  return results;
+}
 
-  return response.results.map(mapPageToInfluencer);
+export async function getPartnersNotion(): Promise<Influencer[]> {
+  const results = await queryAllPages({
+    filter: { property: "Ativo", checkbox: { equals: true } },
+  });
+  return results.map(mapPageToInfluencer);
 }
 
 export async function getAllPartnersNotion(): Promise<Influencer[]> {
-  const response = await notion.dataSources.query({
-    data_source_id: dataSourceId,
-  });
-
-  return response.results.map(mapPageToInfluencer);
+  const results = await queryAllPages();
+  return results.map(mapPageToInfluencer);
 }
 
 export async function getPartnerBySlugNotion(

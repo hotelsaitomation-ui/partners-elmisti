@@ -106,6 +106,17 @@ const iconesSVG: Record<string, React.ReactNode> = {
   ),
 };
 
+/** Valida que a URL de video e de um dominio permitido */
+function isVideoUrlPermitida(url: string): boolean {
+  try {
+    const parsed = new URL(url);
+    const permitidos = ["www.youtube.com", "youtube.com", "youtu.be", "player.vimeo.com", "www.youtube-nocookie.com"];
+    return permitidos.includes(parsed.hostname);
+  } catch {
+    return false;
+  }
+}
+
 /** Calcula dias restantes da oferta */
 function diasRestantes(validade: string): number {
   const fim = new Date(validade + "T23:59:59");
@@ -156,6 +167,7 @@ export default async function PartnerPage({ params }: Props) {
         influencerSlug={influencer.slug}
         bookingCode={property?.bookingCode ?? ""}
         propertyNome={property?.nome ?? "El Misti Hostels"}
+        whatsapp={conteudo.whatsapp}
         themeColor={theme.primary}
         themeDark={theme.primaryDark}
       />
@@ -312,8 +324,8 @@ export default async function PartnerPage({ params }: Props) {
           </section>
         )}
 
-        {/* 3. VIDEO - Condicional */}
-        {influencer.video && (
+        {/* 3. VIDEO - Condicional (so dominios permitidos) */}
+        {influencer.video && isVideoUrlPermitida(influencer.video) && (
           <section className="py-14 px-4 bg-white">
             <div className="max-w-3xl mx-auto">
               <h2

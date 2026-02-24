@@ -1,5 +1,19 @@
 import { NichoData } from "@/types/partner";
 
+/** Labels dos nichos para selects e exibicao */
+export const nichoLabels = [
+  { value: "viajante-solo", label: "Viajante Solo" },
+  { value: "mochileiro", label: "Mochileiro" },
+  { value: "surfista", label: "Surfista" },
+  { value: "nomad", label: "Nomade Digital" },
+  { value: "casal", label: "Casal" },
+] as const;
+
+/** Lookup rapido de label por value */
+export function getNichoLabel(value: string): string {
+  return nichoLabels.find((n) => n.value === value)?.label ?? value;
+}
+
 export const nichos: Record<string, NichoData> = {
   "viajante-solo": {
     titulo: "Por que quem viaja sozinha escolhe o El Misti",

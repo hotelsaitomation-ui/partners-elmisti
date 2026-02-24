@@ -5,14 +5,7 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { Influencer } from "@/types/partner";
 import ThemeSelector from "@/components/ThemeSelector";
-
-const NICHOS: Record<string, string> = {
-  "viajante-solo": "Viajante Solo",
-  mochileiro: "Mochileiro",
-  surfista: "Surfista",
-  nomad: "Nomade Digital",
-  casal: "Casal",
-};
+import { getNichoLabel } from "@/data/nichos";
 
 interface FormEditavel {
   nome: string;
@@ -299,7 +292,7 @@ export default function SetupPage() {
                 <div>
                   <dt className="text-xs text-gray-400 uppercase tracking-wide">Nicho</dt>
                   <dd className="font-medium text-gray-700 text-sm mt-0.5">
-                    {NICHOS[parceiro.nicho] ?? parceiro.nicho}
+                    {getNichoLabel(parceiro.nicho)}
                   </dd>
                 </div>
                 <div>

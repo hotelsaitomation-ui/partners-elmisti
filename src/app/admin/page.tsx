@@ -6,15 +6,9 @@ import { Influencer } from "@/types/partner";
 import ThemeSelector from "@/components/ThemeSelector";
 import { getTheme } from "@/data/themes";
 import { activeProperties, getProperty } from "@/data/properties";
+import { nichoLabels } from "@/data/nichos";
+import { gerarSlug } from "@/lib/utils";
 import type { ConteudoPagina } from "@/lib/conteudo";
-
-const NICHOS = [
-  { value: "viajante-solo", label: "Viajante Solo" },
-  { value: "mochileiro", label: "Mochileiro" },
-  { value: "surfista", label: "Surfista" },
-  { value: "nomad", label: "Nomade Digital" },
-  { value: "casal", label: "Casal" },
-];
 
 interface NovoParceiroForm {
   nome: string;
@@ -43,16 +37,6 @@ const formVazio: NovoParceiroForm = {
   tema: "misti-original",
   propriedade: "misti-ipa",
 };
-
-function gerarSlug(nome: string): string {
-  return nome
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9\s-]/g, "")
-    .trim()
-    .replace(/\s+/g, "-");
-}
 
 const CONTEUDO_CAMPOS: { key: keyof ConteudoPagina; label: string; multiline?: boolean }[] = [
   { key: "heroTitulo", label: "Titulo do Hero" },
@@ -106,7 +90,7 @@ export default function AdminPage() {
       const res = await fetch(url);
       if (!res.ok) throw new Error("Falha ao buscar conteudo");
       const dados = await res.json();
-      setConteudoForm(aba === "global" ? dados.conteudo : dados.conteudo);
+      setConteudoForm(dados.conteudo ?? {});
     } catch {
       setConteudoFeedback("Erro ao carregar conteudo");
     } finally {
@@ -332,7 +316,7 @@ export default function AdminPage() {
                   onChange={(e) => setForm((p) => ({ ...p, nicho: e.target.value }))}
                   className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-misti-orange"
                 >
-                  {NICHOS.map((n) => (
+                  {nichoLabels.map((n) => (
                     <option key={n.value} value={n.value}>{n.label}</option>
                   ))}
                 </select>
@@ -491,7 +475,7 @@ export default function AdminPage() {
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {parceiros.map((p) => {
-                  const nichoLabel = NICHOS.find((n) => n.value === p.nicho)?.label ?? p.nicho;
+                  const nichoLabel = nichoLabels.find((n) => n.value === p.nicho)?.label ?? p.nicho;
                   return (
                     <tr key={p.slug} className="hover:bg-misti-gray-warm/50 transition-colors">
                       <td className="px-5 py-4">

@@ -9,6 +9,7 @@ interface SmartFormProps {
   influencerSlug: string;
   bookingCode: string;
   propertyNome: string;
+  whatsapp?: string;
   themeColor?: string;
   themeDark?: string;
 }
@@ -19,6 +20,7 @@ export default function SmartFormElMisti({
   influencerSlug,
   bookingCode,
   propertyNome,
+  whatsapp = "5521999999999",
   themeColor = "#FD8000",
   themeDark = "#DB6F00",
 }: SmartFormProps) {
@@ -57,7 +59,7 @@ export default function SmartFormElMisti({
       `Hospedes: ${adults}\n` +
       `Parceiro: ${influencerSlug}`
     );
-    return `https://wa.me/5521999999999?text=${texto}`;
+    return `https://wa.me/${whatsapp}?text=${texto}`;
   }
 
   function handleSubmit(e: React.FormEvent) {

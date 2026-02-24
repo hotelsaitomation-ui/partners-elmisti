@@ -29,7 +29,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     });
 
     return response;
-  } catch {
+  } catch (error) {
+    console.error("[POST /api/auth]", error);
     return NextResponse.json(
       { error: "Falha na autenticacao" },
       { status: 500 }

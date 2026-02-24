@@ -6,7 +6,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect") ?? "/admin";
+  const rawRedirect = searchParams.get("redirect") ?? "/admin";
+  // Prevenir open redirect: so aceitar caminhos internos
+  const redirect = rawRedirect.startsWith("/") && !rawRedirect.startsWith("//")
+    ? rawRedirect
+    : "/admin";
 
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");

@@ -1,16 +1,9 @@
 import { Influencer } from "@/types/partner";
+import { gerarSlug } from "@/lib/utils";
 
 export interface NormalizeResult {
   data: Partial<Influencer>;
   warnings: string[];
-}
-
-// Remove acentos e caracteres especiais para gerar slug
-function removeAccents(str: string): string {
-  return str
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^\w\s-]/g, "");
 }
 
 // Capitaliza cada palavra da string
@@ -20,16 +13,6 @@ function capitalizarPalavras(str: string): string {
     .split(/\s+/)
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");
-}
-
-// Gera slug a partir do nome
-function gerarSlug(nome: string): string {
-  return removeAccents(nome)
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, "-")
-    .replace(/-+/g, "-")
-    .replace(/^-|-$/g, "");
 }
 
 // Validacao basica de URL (deve comecar com http)
